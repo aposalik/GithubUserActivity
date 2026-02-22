@@ -22,6 +22,15 @@ public class Main {
         try {
             String json = gitHubApiClient.fetchUserEvents(username);
             
+            // DEBUG: Print first event's raw JSON
+            System.out.println("=== FIRST EVENT RAW JSON ===");
+            int firstEventEnd = json.indexOf("},") + 1;
+            if (firstEventEnd > 0) {
+                System.out.println(json.substring(1, Math.min(firstEventEnd + 500, json.length())));
+            }
+            System.out.println("=== END RAW JSON ===");
+            System.out.println();
+            
             List<Event> events = jsonParser.parseJson(json);
 
             if(events.isEmpty()){
@@ -34,12 +43,6 @@ public class Main {
                 System.out.println("=== DEBUG ===");
                 System.out.println("Type: " + event.getType());
                 System.out.println("Repo: " + event.getRepo().getName());
-
-                if (event.getPayload() != null) {
-                    System.out.println("Payload Size: " + event.getPayload().getSize());
-                    System.out.println("Payload Action: " + event.getPayload().getAction());
-                    System.out.println("Payload RefType: " + event.getPayload().getRefType());
-                }
                 System.out.println("=============");
 
                 String message = formatter.format(event);

@@ -12,9 +12,9 @@ public class ActivityFormatter {
                 return "Starred " + repoName;
 
                 case "PushEvent":
-                    Integer commitCount = event.getPayload().getSize();
-                    if(commitCount != null){
-                        return "Pushed " + commitCount + " commits to " + repoName;
+                    Integer commitCount = event.getPayload().getCommitsSize();
+                    if(commitCount != null  && commitCount > 0) {
+                        return "Pushed commits to " + repoName;
                     }
                     return null;
 

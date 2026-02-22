@@ -1,7 +1,7 @@
 package org.example;
 import com.google.gson.annotations.SerializedName;
 
-
+import java.util.List;
 
 
 // CLASS for REPO
@@ -29,6 +29,9 @@ class Payload{
     String action;
     @SerializedName("ref_type")
     String refType;
+    @SerializedName("commits")
+    private List<Object> commits;  // ← ADD THIS! Use Object since we don't need commit details
+
 
     // Constractor
     Payload(){};
@@ -43,6 +46,16 @@ class Payload{
     public String getRefType(){
         return this.refType;
     }
+    public List<Object> getCommits(){
+        return this.commits;
+    }
+
+    public Integer getCommitsSize(){
+        if(commits != null){
+            return commits.size();
+        }
+        return size;
+    }
 
     // Setters
     public void setSize(Integer size){
@@ -55,6 +68,9 @@ class Payload{
 
     public void setRefType(String refType){
         this.refType = refType;
+    }
+    public void setCommits(List<Object> commits){
+        this.commits = commits;
     }
 
 
